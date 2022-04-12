@@ -1,0 +1,54 @@
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-12" style="margin-top: 20px">-->
+<!--            <mat-card style="margin: 50px 0;">-->
+<!--                <form class="form-login" #f="ngForm" (ngSubmit)="f.form.valid&&ngSubmit()" novalidate>-->
+<!--                    <mat-error *ngIf="isCheckLoginFailed" class="alert alert-primary">{{status}}</mat-error>-->
+<!--                    &lt;!&ndash;USERNAME &ndash;&gt;-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Username: </mat-label>-->
+<!--                        <input matInput placeholder="Username ..." name="username" [(ngModel)]="form.username" #username="ngModel" minlength="3" maxlength="50" required>-->
+<!--                        <mat-icon color="accent" matSuffix>account_circle</mat-icon>-->
+<!--                        <mat-error *ngIf="username.hasError('required')">The username is required!</mat-error>-->
+<!--                        <mat-error *ngIf="username.hasError('minlength')">The username must more than 3 character!</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Enter your password</mat-label>-->
+<!--                        <input name="password" [(ngModel)]="form.password" minlength="6" maxlength="10" #password="ngModel" matInput [type]="hide ? 'password' : 'text'" required>-->
+<!--                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">-->
+<!--                            <mat-icon color="accent">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
+<!--                        </button>-->
+<!--                        <mat-error *ngIf="password.hasError('required')">The username is required!</mat-error>-->
+<!--                        <mat-error *ngIf="password.hasError('minlength')">The username must more than 6 character!</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    <button mat-stroked-button color="accent" class="mat-button-toggle-group btn-outline-success">Login-->
+<!--                        <mat-icon color="accent" matSuffix>login</mat-icon>-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </mat-card>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<img src="assets/img/loader.gif" class="loader" alt="">
+
+<div class="alert-box">
+    <img src="assets/img/error.png" class="alert-img" alt="">
+    <p class="alert-msg">Error message</p>
+</div>
+
+<div class="container">
+    <img src="assets/img/dark-logo.png" class="logo" alt="">
+    <form class="form-login" #f="ngForm" (ngSubmit)="f.form.valid&&ngSubmit()" novalidate>
+    <div>
+        <input type="text" name="username" [(ngModel)]="form.username" #username="ngModel" minlength="3" maxlength="50" required>
+        <input type="password" name="password" [(ngModel)]="form.password" minlength="6" maxlength="10" #password="ngModel">
+        <button class="submit-btn">log in</button>
+    </div>
+    <a href="/register"  class="link">don't have an account? Create one</a>
+    </form>
+</div>
+
+<script src="assets/js/token.js"></script>
+<script src="assets/js/form.js"></script>

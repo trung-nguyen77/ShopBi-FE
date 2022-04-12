@@ -1,0 +1,208 @@
+
+<body>
+
+<div >
+    <a [routerLink]="['/index']"><h2>Home</h2></a>
+    <h4 style="text-align: center; color: green">Welcome to {{this.tokenService.getNameKey()}}</h4>
+    <table class="table table-striped" id="main-container">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Order Number</th>
+            <th>Store</th>
+            <th>Avartar</th>
+            <th>Address</th>
+            <th>Bill</th>
+            <th>Status</th>
+            <th>Rate</th>
+            <th>Create At</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let orders of orderList;let i = index">
+        <tr>
+            <td>{{i}}</td>
+            <td>{{orders.id}}</td>
+            <td>{{orders.userPm.nameStore}}</td>
+            <td><img src="{{orders.userPm.avatar}}" height="200" width="200px"></td>
+            <td>{{orders.address_ship}}</td>
+            <td> {{orders.totalBill}} </td>
+            <td> {{orders.status}} </td>
+            <td *ngIf="! (orders.rate == null)">
+                <div class="rating" *ngIf="orders.rate.rateStar == 5">
+                    <div class="rating">
+                        <input type="radio" name="{{orders.id}}" value="5" id="15" checked>
+                        <label for="15">☆</label>
+                        <input type="radio" name="{{orders.id}}" value="4" id="14">
+                        <label for="14">☆</label>
+                        <input type="radio" name="{{orders.id}}" value="3" id="13">
+                        <label for="13">☆</label>
+                        <input type="radio" name="{{orders.id}}" value="2" id="12">
+                        <label for="12">☆</label>
+                        <input type="radio" name="{{orders.id}}" value="1" id="11">
+                        <label for="11">☆</label>
+                    </div>
+                </div>
+                <div class="rating" *ngIf="orders.rate.id == 4">
+                    <input type="radio" name="{{orders.id}}" value="3" id="114" checked>
+                    <label for="114">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="3" id="113">
+                    <label for="113">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="2" id="112">
+                    <label for="112">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="1" id="111">
+                    <label for="111">☆</label>
+                </div>
+                <div class="rating" *ngIf="orders.rate.id == 3">
+                    <input type="radio" name="{{orders.id}}" value="3" id="1113" checked>
+                    <label for="1">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="2" id="1112">
+                    <label for="1112">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="1" id="1111">
+                    <label for="1111">☆</label>
+                </div>
+                <div class="rating" *ngIf="orders.rate.id == 2" >
+                    <input type="radio" name="{{orders.id}}" value="2" id="11112" checked>
+                    <label for="11112">☆</label>
+                    <input type="radio" name="{{orders.id}}" value="1" id="11111">
+                    <label for="11111">☆</label>
+                </div>
+                <div class="rating" *ngIf="orders.rate.id == 1">
+
+                    <input type="radio" name="{{orders.id}}" value="1" id="111111">
+                    <label for="1">☆</label>
+                </div>
+            </td>
+
+            <td *ngIf="orders.rate == null">Please Rate</td>
+            <td> {{orders.createAt}}</td>
+            <td>
+                <a (click)="onOpenModal(orders, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"> Detail<i class="fa fa-pencil"></i> </a>
+            </td>
+            <td>
+<!--                <a *ngIf="orders.status == 'Pending'" (click)="onOpenModal(orders, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"> Delete<i class="fa fa-times"></i></a>-->
+                <a *ngIf="orders.status == 'Done' && (orders.rate == null)" (click)="onOpenModal(orders, 'add')" class="btn btn-warning" > Rating<i class="fa fa-star checked"></i> </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div style="margin-left: 50%;margin-top: 30px ">
+        <button style="align-items: center" type="button" class="btn search-btn-left" style=" font-size: 11px;margin-left: 50% "  (click)="backPage()"> Back </button>
+
+        <button type="button" class="btn search-btn-right" style=" font-size: 11px " (click)="nextPage()"> Next </button>
+    </div>
+<!-- Star Ratings-->
+    <div class="modal fade"  id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog  " role="document">
+            <div class="modal-content" style="background:green">
+                    <div class="container d-flex justify-content-center mt-5">
+                    <div class="card text-center mb-5" *ngIf="checkOrder">
+                        <div class="circle-image"> <img src="{{this.orderCurrent.userPm.avatar}}" width="50"> </div>
+                        <span class="dot"></span> <span class="name mb-1 fw-500">{{this.orderCurrent.userPm.nameStore}}</span>
+                        <small class="text-black-50">Order ID</small>
+                        <small class="text-black-50 font-weight-bold">{{this.orderCurrent.id}}</small>
+                        <div class="location mt-4" *ngFor="let cartDetail of orderDetailList">
+                            <span class="d-block">
+                                <i class="fa fa-map-marker start"></i>
+                                <small class="text-truncate ml-2">{{cartDetail.product.name}}</small>
+                                <small class="text-truncate ml-2"><img src="{{cartDetail.product.coverPhoto}}" style="width: 10px; height: 10px"></small>
+                            </span>
+
+                        </div>
+
+                        <div class="rate bg-success py-3 text-white mt-3">
+                            <form name="rating" #rating>
+                            <h6 class="mb-0">Rate your Order</h6>
+                            <div class="rating">
+                                <input type="radio" name="rating" value="5" id="5" checked>
+                                <label for="5">☆</label>
+                                <input type="radio" name="rating" value="4" id="4">
+                                <label for="4">☆</label>
+                                <input type="radio" name="rating" value="3" id="3">
+                                <label for="3">☆</label>
+                                <input type="radio" name="rating" value="2" id="2">
+                                <label for="2">☆</label>
+                                <input type="radio" name="rating" value="1" id="1">
+                                <label for="1">☆</label>
+                            </div>
+                            </form>
+                            <div class="buttons px-4 mt-0"> <button class="btn btn-warning btn-block rating-submit" data-dismiss="modal" (click)="createRate(orderCurrent)">Submit</button> </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--    showorderdetail-->
+    <div class="modal fade" style="width: 100%" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl"  role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateProductModalLabel">
+                        Show OrderDetail {{this.tokenService.getUserNameKey()}}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div >
+                        <h2>Shopping Cart</h2>
+                        <h4 style="text-align: center; color: green">Welcome to {{this.tokenService.getNameKey()}}</h4>
+                        <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                                <th>Productname</th>
+                                <th>Img</th>
+                                <th>Quantity</th>
+                                <th>Quantity Now</th>
+                                <th>Price</th>
+                                <th>Bill</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let orderDetail of orderDetailListEdit;let i = index">
+                            <tr>
+                                <td>{{orderDetail.product.name}}</td>
+                                <td><img src="{{orderDetail.product.coverPhoto}}" height="200" width="200px"></td>
+                                <td>{{orderDetail.quantity}}</td>
+                                <td>{{orderDetail.product.priceSale}}</td>
+                                <td>{{orderDetail.product.priceSale*orderDetail.quantity}}</td>
+                                <td>{{orderDetail.product.priceSale*orderDetail.quantity}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <!--    show cancel order -->
+<!--    <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Are you sure you want to delete employee {{this.tokenService.getUserNameKey()}}?</p>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>-->
+<!--                        <button (click)="onDeleteProduct(this.cancelOrder)" class="btn btn-danger" data-dismiss="modal">Yes</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+</div>
+
+
+</body>

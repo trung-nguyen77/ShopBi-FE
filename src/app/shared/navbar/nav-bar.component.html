@@ -1,0 +1,36 @@
+    <nav class="navbar">
+        <div class="nav">
+            <a style="margin-left: 10px" [routerLink]="['/index']"><img src="assets/img/dark-logo.png" class="brand-logo" alt=""></a>
+            <div class="nav-items">
+                <div class="search">
+                    <input #search (change)="searchProduct()" type="text" class="search-box" placeholder="search brand, product">
+                    <button class="search-btn" (click)="searchProduct()">search</button>
+                </div>
+                <a *ngIf="!isCheckLogin " [routerLink]="['/login']">
+                    <img style="margin-right: 33px;" src="assets/img/user.png" id="user-img" alt="">
+                </a>
+                <a *ngIf="isCheckLogin " [routerLink]="['/index/inforComponent']">
+                    <img src="{{avatar}}" style="width: 30px;height: 30px" alt="">
+                </a>
+                <a *ngIf="!isCheckLogin " [routerLink]="['/login']"><p>Login</p></a>
+                <a *ngIf="!isCheckLogin " [routerLink]="['/register']"><p>Register</p></a>
+                <div class="dropdown" *ngIf="isCheckLogin">
+                    <span><a  [routerLink]="['/index/inforComponent']"><p>{{name}}</p></a></span>
+                    <div class="dropdown-content">
+                        <a  [routerLink]="['/user/showOrders']"><p > MyOrders</p></a>
+                        <a href="#" (click)="logOut()"><p style="color: #0d6efd;">Logout</p></a>
+                    </div>
+                </div>
+
+                <a *ngIf="quantityCart == 0"><p style="color: red; bottom: 1px">{{quantityCart}}</p><img src="assets/img/cart.png" alt=""></a>
+                <a *ngIf="isCheckLogin && checkPM" [routerLink]="['/index/inforComponent']"><p> Register Seller</p></a>
+                <a *ngIf="!(isCheckLogin && checkPM)" [routerLink]="['/pm']"><p> Seller Manager</p></a>
+
+                <a *ngIf="quantityCart > 0" [routerLink]="['/showCartDetail']"><p style="color: red; bottom: 1px">{{quantityCart}}</p><img src="assets/img/cart.png" alt=""></a>
+            </div>
+        </div>
+        <ul class="links-container">
+            <li class="link-item" *ngFor="let c of categories"><a (click)="showProductsByCategory(c.id)"
+                                                                  class="link">{{c.name}}</a></li>
+        </ul>
+</nav>

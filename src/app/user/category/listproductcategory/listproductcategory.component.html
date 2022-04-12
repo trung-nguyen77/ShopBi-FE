@@ -1,0 +1,31 @@
+<nav class="navbarxx">
+    <app-navbar></app-navbar>
+</nav>
+
+<section class="search-results">
+    <h2 class="heading">search results for <span> product </span></h2>
+    <div class="product-container">
+        <div *ngFor="let product of products" class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <a (click)="showProductDetail(product.id)" >
+                    <img src="{{product.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">{{product.category.name}}</h2>
+                <p class="product-short-des">{{product.description}}</p>
+                <span class="price"></span><span class="actual-price">${{product.priceSale}}</span>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left: 50%;margin-top: 30px ">
+        <button style="align-items: center" type="button" class="btn search-btn-left" style=" font-size: 11px;margin-left: 50% "  (click)="backPage()"> Back </button>
+
+        <button type="button" class="btn search-btn-right" style=" font-size: 11px " (click)="nextPage()"> Next </button>
+    </div>
+</section>
+
+
+<app-footer></app-footer>

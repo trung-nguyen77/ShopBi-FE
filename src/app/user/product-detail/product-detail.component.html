@@ -1,0 +1,163 @@
+<nav class="navbarxx">
+    <app-navbar></app-navbar>
+</nav>
+
+
+<section class="product-details" >
+    <div #productImageSlide class="image-slider"  >
+        <div    class="product-images" >
+            <img  (click) ="showPicture(product.coverPhoto)"   class="active" src="{{product.coverPhoto}}" alt="" >
+            <img  (click)="showPicture(img.link)"  *ngFor="let img of imgList"  class="active" src="{{img.link}}" alt="" >
+        </div>
+    </div>
+    <div class="details">
+        <h2 class="product-brand">{{product.name}}</h2>
+        <div class="rating" *ngIf="rateAvgPm == 5">
+            <div class="rating">
+                <input type="radio" name="{{product.id}}" value="5" id="15" checked>
+                <label for="15">☆</label>
+                <input type="radio" name="{{product.id}}" value="4" id="14">
+                <label for="14">☆</label>
+                <input type="radio" name="{{product.id}}" value="3" id="13">
+                <label for="13">☆</label>
+                <input type="radio" name="{{product.id}}" value="2" id="12">
+                <label for="12">☆</label>
+                <input type="radio" name="{{product.id}}" value="1" id="11">
+                <label for="11">☆</label>
+            </div>
+        </div>
+        <div class="rating" *ngIf="rateAvgPm == 4">
+            <input type="radio" name="{{product.id}}" value="3" id="114" checked>
+            <label for="114">☆</label>
+            <input type="radio" name="{{product.id}}" value="3" id="113">
+            <label for="113">☆</label>
+            <input type="radio" name="{{product.id}}" value="2" id="112">
+            <label for="112">☆</label>
+            <input type="radio" name="{{product.id}}" value="1" id="111">
+            <label for="111">☆</label>
+        </div>
+        <div class="rating" *ngIf="rateAvgPm == 3">
+            <input type="radio" name="{{product.id}}" value="3" id="1113" checked>
+            <label for="1113">☆</label>
+            <input type="radio" name="{{product.id}}" value="2" id="1112">
+            <label for="1112">☆</label>
+            <input type="radio" name="{{product.id}}" value="1" id="1111">
+            <label for="1111">☆</label>
+        </div>
+        <div class="rating" *ngIf="rateAvgPm == 2" >
+            <input type="radio" name="{{product.id}}" value="2" id="11112" checked>
+            <label for="11112">☆</label>
+            <input type="radio" name="{{product.id}}" value="1" id="11111">
+            <label for="11111">☆</label>
+        </div>
+        <div class="rating" *ngIf="rateAvgPm == 1">
+
+            <input type="radio" name="{{product.id}}" value="1" id="111111" checked>
+            <label for="111111">☆</label>
+        </div>
+
+        <br>
+        <p class="product-brand">Available: {{quantityProductNow}}</p>
+        <p class="product-brand">Sold: {{product.priceSale}}</p>
+        <br>
+        <p class="product-short-des">{{product.description}}</p>
+        <span class="product-price">Price sale: $ {{product.priceSale}}</span>
+        <span class="product-actual-price">Price: ${{product.price}}</span>
+        <span class="product-discount">( {{product.promotion.discount}}% off )</span>
+        <BR>
+        <button *ngIf="checkLogin && username !== product.user.username" class="btn cart-btn" (click)="addToCart(product)">add to cart</button>
+        <button *ngIf="!checkLogin " class="btn cart-btn" (click)="login()">add to cart</button>
+
+    </div>
+</section>
+<!--comment-->
+    <section class="detail-des">
+        <h2 class="heading">Reviews</h2>
+        <div >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Recent Comments</h4>
+                            <h6 class="card-subtitle">Latest Comments section by users</h6>
+                        </div>
+                        <div class="comment-widgets m-b-20">
+                            <div class="d-flex flex-row comment-row" *ngFor="let comment of listComment">
+                                <div class="p-2"><span class="round"><img src="{{comment.userComment.avatar}}" alt="user" width="50"></span></div>
+                                <div class="comment-text w-100">
+                                    <h5>{{comment.userComment.name}}</h5>
+                                    <p class="m-b-5 m-t-10" style="text-align: left;color: green;font-size: x-large">{{comment.content}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div >
+                                <div class="p-2"><span class="round"><img src="{{userOnline.avatar}}" alt="user" width="50"></span></div>
+                                <div class="comment-text w-100">
+                                    <h5>{{userOnline.name}}</h5>
+                                    <textarea style="width: 100%;height: 50px ; font-size: x-large" name="" [(ngModel)]="contentComment" cols="30" rows="10" placeholder="Enter Comment"></textarea>
+                                    <button (click)="saveComment()" class="btn btn-warning">AddComent</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+<!-- card-container -->
+<section class="product">
+   <a (click)="showProductsByPm(product.user.id)"><h2 class="product-category">{{product.user.nameStore}}</h2> </a>
+    <button class="pre-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <div class="product-container" *ngIf="top15ProductsalePm">
+        <div *ngFor="let product of top15ProductsalePm" class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">{{product.promotion.discount}}% off</span>
+                <a (click)="goProduct(product)">
+                    <img src="{{product.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+
+<!--                <button class="card-btn">add to whislist</button>-->
+            </div>
+            <div class="product-info">
+                <a (click)="goProduct(product)">  <h2 class="product-brand">{{product.name}}</h2></a>
+                <p class="product-short-des">Sold: {{product.quantitySale}}</p>
+                <span class="price">${{product.priceSale}}</span>
+                <span class="actual-price">${{product.price}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- card-container -->
+<section class="product" >
+   <a [routerLink]="['/showProductByCategory',product.category.id]"> <h2 class="product-category">{{product.category.name}}</h2></a>
+    <button class="pre-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <div class="product-container" *ngIf="checkFindByPmAndCate">
+        <div *ngFor="let product of findByPmAndCate" class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">{{product.promotion.discount}}% off</span>
+                <a (click)="goProduct(product)">
+                    <img src="{{product.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+
+<!--                <button class="card-btn">add to whislist</button>-->
+            </div>
+            <div class="product-info">
+                <a (click)="goProduct(product)">  <h2 class="product-brand">{{product.name}}</h2></a>
+                <p class="product-short-des">Sold: {{product.quantitySale}}</p>
+                <span class="price">${{product.priceSale}}</span>
+                <span class="actual-price">${{product.price}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<app-footer></app-footer>

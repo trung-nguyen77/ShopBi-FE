@@ -1,0 +1,48 @@
+
+<body>
+
+<div >
+    <a [routerLink]="['/index']"><h2>Shopping Cart</h2></a>
+    <h4 style="text-align: center; color: green">Welcome to {{this.tokenService.getNameKey()}}</h4>
+    <table class="table table-striped" *ngFor="let orderPMs of orderPmList;let a = index">
+        <thead>
+        <tr>
+            <th>Productname</th>
+            <th>Img</th>
+            <th>Quantity</th>
+            <th>Quantity Now</th>
+            <th>Price</th>
+            <th>Bill</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let cartDetail of orderPMs.cartDetails;let i = index">
+        <tr>
+            <td>{{cartDetail.product.name}}</td>
+            <td><img src="{{cartDetail.product.coverPhoto}}" height="200" width="200px"></td>
+            <td>{{cartDetail.quantity}}</td>
+            <td><input type="number" name="{{cartDetail.product.id}}" ngModel placeholder="Quantity Edit" id="{{cartDetail.product.id}}" (ngModelChange)="updateCart(cartDetail,$event ,a ,i)" >
+            <td>{{cartDetail.product.priceSale}}</td>
+            <td>{{cartDetail.product.priceSale*cartDetail.quantity}}</td>
+            <td>{{cartDetail.product.priceSale*cartDetail.quantity}}</td>
+        </tr>
+        </tbody>
+        <tr>
+            <td style="padding: 30px"><h4>Address: </h4></td>
+            <td colspan="6"> <input type="text" placeholder="Address" [(ngModel)]="address" value="{{address}}"  ></td></tr>
+        <tr>
+            <td colspan="6" style="text-align: right ; color: red">Total : {{getTotalBillByPm(orderPMs.cartDetails)}}</td>
+        </tr>
+
+    </table>
+    <table >
+        <tr>
+            <td colspan="6" style="text-align: right ; color: red"><h3>Total : {{getTotalBill(orderPmList)}}</h3></td>
+        </tr>
+        <tr>
+            <td colspan="6"><button class="btn btn-success" id="submit-btn" (click)="createOrders(orderPmList)">Check Out</button></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>

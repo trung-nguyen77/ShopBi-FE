@@ -1,0 +1,100 @@
+
+<div>
+    <header class="hero-section">
+        <div class="content">
+            <img src="assets/img/light-logo.png" class="logo" alt="">
+            <p class="sub-heading">best fashion collection of all time</p>
+        </div>
+    </header>
+</div>
+
+<!-- cards-container -->
+<section class="product">
+    <h2 class="product-category">best selling</h2>
+    <button class="pre-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <div class="product-container" *ngIf="checkLoadBestProducts">
+        <div  *ngFor="let product of bestProducts" class="product-card" >
+            <div class="product-image"  >
+                <span class="discount-tag">{{product.promotion.discount}}% off</span>
+                <a (click)="showDetail(product.id)" >
+                    <img src="{{product.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">{{product.name}}</h2>
+                <p class="product-short-des">Sold: {{product.quantitySale}}</p>
+                <span class="price">${{product.priceSale}}</span>
+                <span class="actual-price">${{product.price}}</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div>
+    <!-- collections -->
+    <section class="collection-container" *ngIf="checkCategory">
+        <a (click)="showProductBYCategoryId(category.id)"  class="collection" *ngFor="let category of categories">
+            <img src="{{category.imgCate}}" alt="">
+            <p class="collection-title">{{category.name}} <br> apparels</p>
+        </a>
+    </section>
+
+</div>
+
+<!-- card-container -->
+<section class="product" *ngIf="checkCategory">
+  <a (click)="showProductBYCategoryId(categories[0].id) "> <h2 class="product-category">{{categories[0].name}}</h2>></a>
+    <button class="pre-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <div class="product-container" *ngIf="checkLoadTopCategory ">
+        <div *ngFor="let productC of top1CategoryProducts" class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">{{productC.promotion.discount}}% off</span>
+                <a (click)="showDetail(productC.id)" >
+                    <img src="{{productC.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">{{productC.name}}</h2>
+                <p class="product-short-des">Sold: {{productC.quantitySale}}</p>
+                <span class="price">${{productC.priceSale}}</span>
+                <span class="actual-price">${{productC.price}}</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- card-container -->
+<section class="product">
+    <h2 class="product-category">Product NEW</h2>
+    <button class="pre-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="assets/img/arrow.png" alt=""></button>
+    <div class="product-container" *ngIf="checkProductsNew">
+        <div *ngFor="let product of productsNew" class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">{{product.promotion.discount}}% off</span>
+                <a (click)="showDetail(product.id)" >
+                    <img src="{{product.coverPhoto}}" class="product-thumb" alt="">
+                </a>
+
+                <button class="card-btn">add to whislist</button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">{{product.name}}</h2>
+                <p class="product-short-des">Sold: {{product.quantitySale}}</p>
+                <span class="price">${{product.priceSale}}</span>
+                <span class="actual-price">${{product.price}}</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+

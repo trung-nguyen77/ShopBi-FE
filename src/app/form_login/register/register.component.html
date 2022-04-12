@@ -1,0 +1,79 @@
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-12" style="margin-top: 20px">-->
+<!--            <mat-card style="margin: 50px 0">-->
+<!--                <form class="form-register" #f="ngForm" (ngSubmit)="f.form.valid &&ngSubmit()" novalidate>-->
+<!--                    <mat-error class="alert alert-primary">{{status}}</mat-error>-->
+<!--                    &lt;!&ndash;NAME &ndash;&gt;-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Name</mat-label>-->
+<!--                        <input matInput placeholder="Name .." name="name" [(ngModel)]="form.name" #name="ngModel" minlength="3" maxlength="50" required>-->
+<!--                        <mat-icon color="accent" matSuffix>account_circle</mat-icon>-->
+<!--                        <mat-error *ngIf="name.hasError('required')">The name is required!</mat-error>-->
+<!--                        <mat-error *ngIf="name.hasError('minlength')">The name must more than 3 character!</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    &lt;!&ndash;USERNAME &ndash;&gt;-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Username: </mat-label>-->
+<!--                        <input matInput placeholder="Username ..." name="username" [(ngModel)]="form.username" #username="ngModel" minlength="3" maxlength="50" required>-->
+<!--                        <mat-icon color="accent" matSuffix>account_circle</mat-icon>-->
+<!--                        <mat-error *ngIf="username.hasError('required')">The username is required!</mat-error>-->
+<!--                        <mat-error *ngIf="username.hasError('minlength')">The username must more than 3 character!</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    &lt;!&ndash;EMAIL -&ndash;&gt;-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Email: </mat-label>-->
+<!--                        <input matInput placeholder="Email ..." name="email" [(ngModel)]="form.email" [formControl]="emailFormControl" required>-->
+<!--                        <mat-icon color="accent" matSuffix>email</mat-icon>-->
+<!--                        <mat-error *ngIf="emailFormControl.hasError('required')">The username is required!</mat-error>-->
+<!--                        <mat-error *ngIf="emailFormControl.hasError('email')">The email invalid! Please try -> Ex: dinhbede@gmail.com</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    <mat-form-field style="width: 350px" appearance="outline">-->
+<!--                        <mat-label>Enter your password</mat-label>-->
+<!--                        <input name="password" [(ngModel)]="form.password" minlength="6" maxlength="10" #password="ngModel" matInput [type]="hide ? 'password' : 'text'" required>-->
+<!--                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">-->
+<!--                            <mat-icon color="accent">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>-->
+<!--                        </button>-->
+<!--                        <mat-error *ngIf="password.hasError('required')">The username is required!</mat-error>-->
+<!--                        <mat-error *ngIf="password.hasError('minlength')">The username must more than 6 character!</mat-error>-->
+<!--                    </mat-form-field><br>-->
+<!--                    <button mat-stroked-button color="accent" class="mat-button-toggle-group btn-outline-primary">Register-->
+<!--                        <mat-icon color="accent" matSuffix>add_circle_outline</mat-icon>-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </mat-card>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<img src="assets/img/loader.gif" class="loader" alt="">
+
+<div class="alert-box">
+    <img src="assets/img/error.png" class="alert-img" alt="">
+    <p class="alert-msg">Error message</p>
+</div>
+
+<div class="container">
+    <img src="assets/img/dark-logo.png" class="logo" alt="">
+
+    <div>
+        <form class="form-register" #f="ngForm" (ngSubmit)="registerFrom()"  novalidate>
+
+        <input type="text" autocomplete="off" #name id="name" placeholder="name" name="name" [(ngModel)]="form.name" #name="ngModel" minlength="3" maxlength="50" required>
+        <input type="text" autocomplete="off" #username id="number" placeholder="username" name="username" [(ngModel)]="form.username" #username="ngModel" minlength="3" maxlength="50" required>
+        <input type="email" autocomplete="off"  #email id="email" placeholder="email" name="email" [(ngModel)]="form.email" [formControl]="emailFormControl" required>
+        <input type="password" autocomplete="off" #password  id="password" placeholder="password" name="password" [(ngModel)]="form.password" minlength="6" maxlength="10" #password="ngModel" matInput [type]="hide ? 'password' : 'text'" required>
+        <input type="checkbox" checked class="checkbox" id="terms-and-cond">
+        <label for="terms-and-cond">agree to our <a href="">terms and conditions</a></label>
+        <br>
+        <input type="checkbox" class="checkbox" id="notification">
+        <label for="notification">recieve upcoming offers and events mails</label>
+        <button #submitBtn class="submit-btn">create account</button>
+        </form>
+    </div>
+    <a href="/login" class="link">already have an account? Log in here</a>
+</div>
+
+<script src="assets/js/token.js"></script>
+<script src="assets/js/form.js"></script>
